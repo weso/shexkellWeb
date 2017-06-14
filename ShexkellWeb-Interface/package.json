@@ -1,0 +1,14 @@
+{
+  "name": "shexkell-web",
+  "version": "1.0.0",
+  "description": "Shexkell web interface",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Sergio Franco",
+  "license": "MIT",
+  "dependencies": {
+    "semantic-ui": "^2.2.10"
+  }
+}

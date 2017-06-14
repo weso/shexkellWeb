@@ -1,0 +1,87 @@
+<html>
+  <head>
+    <title>Shexkell :: Web interface</title>
+
+    <link rel="stylesheet" type="text/css" href="semantic/dist/semantic.min.css">
+    <link rel="stylesheet" type="text/css" href="styles/shexkell.css">
+    <link href="https://fonts.googleapis.com/css?family=Inconsolata" rel="stylesheet">
+
+    <script src="https://code.jquery.com/jquery-3.1.1.min.js"></script>
+    <script src="semantic/dist/semantic.min.js"></script>
+    <script src="https://unpkg.com/vue@2.3.3"></script>
+  </head>
+  
+  <body>
+    <div class="ui container">
+      <h1 class="ui center aligned icon header">
+        <img src="https://wiki.haskell.org/wikiupload/4/4a/HaskellLogoStyPreview-1.png" class="ui image" />
+        Shexkell
+        <div class="sub header">RDF Validation with Shape Expressions</div>
+      </h1>
+
+      <div id="app" class="ui grid">
+        <div class="eight wide column">
+          <h4 class="ui dividing header">RDF Graph</h2>
+          <div class="ui form">
+            <div class="field">
+              <textarea class="text-code" rows="16" v-model="graph"></textarea>
+            </div>
+          </div>
+        </div>
+        <div class="eight wide column">
+          <h4 class="ui dividing header">ShEx Schema</h2>
+          <div class="ui form">
+            <div class="field">          
+              <textarea class="text-code" rows="16" v-model="schema"></textarea>
+            </div>
+          </div>
+        </div>
+        <div class="sixteen wide column">
+          <h4 class="ui dividing header">Nodes to validate</h4>
+          <div class="ui divided items">
+            <div v-for="node in shapeMap" class="item">
+              <div class="ui form">
+                <div class="three fields">
+                  <div class="field">
+                    <label>Node</label>
+                    <input placeholder="Node to validate" type="text" v-model="node.node">
+                  </div>
+                  <div class="field">
+                    <label>Shape</label>
+                    <input placeholder="Shape" type="text" v-model="node.shape">
+                  </div>
+                  <div class="field">
+                    <label>Result</label>
+                    <select v-model="node.expectedResult">
+                      <option value="positive">Satisfies</option>
+                      <option value="negative">Not satisfies</option>
+                    </select>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="sixteen wide column">
+          <button class="fluid positive ui button" v-on:click="validate">Validate</button>
+        </div>
+        
+        <div class="sixteen wide column">
+          <h3 class="ui dividing header">Results</h3>
+          <div class="ui divided items">
+            <div class="item" v-for="result in resultsMap">
+              <div class="ui image">
+                <i class="checkmark icon"></i>
+              </div>
+              <div class="header" style="font-family: monospace">
+                {{result.node}}
+              </div>
+              {{result.shape.shape}} - {{result.shape.result}}
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </body> 
+  <script src="scripts/shexkell.js"></script>
+</html>
